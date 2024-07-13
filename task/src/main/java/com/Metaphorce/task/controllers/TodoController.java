@@ -1,48 +1,42 @@
-// File: TodoController.java
-import org.springframework.beans.factory.annotation.Autowired;
+package com.Metaphorce.task.controllers;
+
+import com.Metaphorce.task.models.Todo;
+import com.Metaphorce.task.services.ITodoService;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.ResponseEntity;
-import java.util.List;
 
-import com.Metaphorce.task.models.Todo
-import com.Metaphorce.task.services.TodoService
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/todos")
 public class TodoController {
-@Autowired
-private TodoService todoService;
-// TODO: Implement REST endpoints for CRUD operations
 
-@Autowired
-    public TodoController(TodoService TodoService)
-    {
-        this.TodoService = TodoService;
+    private final ITodoService todoService;
+
+    public TodoController(ITodoService todoService) {
+        this.todoService = todoService;
     }
 
     @GetMapping("/all")
-    public List<Todo> getTodo()
-    {
-        return this.TodoService.getTodo();
+    public List<Todo> getTodo() {
+        return todoService.findAll();
     }
 
 
     @PostMapping("/add")
-    public ResponseEntity<Object> registrarTodo (@RequestBody Todo Todo)
-    {
-        return this.TodoService.newTodo(Todo);
+    public ResponseEntity<Object> registrarTodo (@RequestBody Todo todo) {
+        return ResponseEntity.ok(todoService.save(todo));
     }
 
     @PutMapping("/update/{TodoID}")
-    public ResponseEntity<Object> actualizarTodo (@RequestBody Todo Todo, @PathVariable("TodoID") Long id)
-    {
-        return this.TodoService.updateTodo(Todo, id);
+    public ResponseEntity<Object> actualizarTodo (@RequestBody Todo todo, @PathVariable("TodoID") Long id) {
+        return ResponseEntity.ok(todoService.update(todo, id));
     }
 
     @DeleteMapping(path = "/delete/{TodoID}")
-    public ResponseEntity<Object> eliminarTodo(@PathVariable("TodoID") Long id)
-    {
-        return this.TodoService.deleteTodo(id);
+    public ResponseEntity<Object> eliminarTodo(@PathVariable("TodoID") Long id) {
+        todoService.delete(id);
+        return ResponseEntity.ok("Todo Deleted!");
     }
 
 

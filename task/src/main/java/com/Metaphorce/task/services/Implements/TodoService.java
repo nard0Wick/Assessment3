@@ -34,8 +34,13 @@ public class TodoService implements ITodoService {
     }
 
     @Override
+<<<<<<< HEAD
     public Todo update(Todo todo) {
         return todoRepository.save(todo);
+=======
+    public Todo update(Todo todo, Long id) {
+        return null;
+>>>>>>> 46092bdc99d6663757cd34dbcc41b53235aab727
     }
 
     @Override

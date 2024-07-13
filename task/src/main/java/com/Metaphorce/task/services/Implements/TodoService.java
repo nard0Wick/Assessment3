@@ -24,8 +24,7 @@ public class TodoService implements ITodoService {
 
     @Override
     public List<Todo> findAllCompleted() {
-        return todoRepository.findAll().stream().filter(t ->
-                t.isCompleted() == true).collect(Collectors.toList());
+        return todoRepository.findAll().stream().filter(Todo::isCompleted).collect(Collectors.toList());
     }
 
     @Override
@@ -34,13 +33,14 @@ public class TodoService implements ITodoService {
     }
 
     @Override
-<<<<<<< HEAD
-    public Todo update(Todo todo) {
-        return todoRepository.save(todo);
-=======
     public Todo update(Todo todo, Long id) {
-        return null;
->>>>>>> 46092bdc99d6663757cd34dbcc41b53235aab727
+        Todo todoDB = todoRepository.findById(id).orElse(null);
+        if ( todoDB == null ) return null;
+
+        todoDB.setTitle(todo.getTitle());
+        todoDB.setCompleted(todo.isCompleted());
+
+        return todoRepository.save(todo);
     }
 
     @Override

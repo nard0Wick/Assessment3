@@ -8,6 +8,6 @@ public interface ITodoService {
     List<Todo> findAll();
     List<Todo> findAllCompleted();
     Todo save(Todo todo);
-    Todo update(Todo todo);
+    Todo update(Todo todo, Long id);
     void delete(Long id);
 }

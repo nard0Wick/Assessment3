@@ -6,6 +6,7 @@ import com.Metaphorce.task.services.ITodoService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class TodoService implements ITodoService {
@@ -23,21 +24,23 @@ public class TodoService implements ITodoService {
 
     @Override
     public List<Todo> findAllCompleted() {
-        return null;
+        return todoRepository.findAll().stream().filter(t ->
+                t.isCompleted() == true).collect(Collectors.toList());
     }
 
     @Override
     public Todo save(Todo todo) {
-        return null;
+        return todoRepository.save(todo);
     }
 
     @Override
     public Todo update(Todo todo) {
-        return null;
+        return todoRepository.save(todo);
     }
 
     @Override
     public void delete(Long id) {
-
+        todoRepository.delete(findAll().stream().filter(t ->
+                t.getId().equals(id)).findFirst().orElseThrow());
     }
 }

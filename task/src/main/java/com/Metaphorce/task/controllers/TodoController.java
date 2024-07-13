@@ -1,11 +1,16 @@
 // File: TodoController.java
+package com.Metaphorce.task.controllers;
+
+import com.Metaphorce.task.services.Implements.TodoService;
+
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.ResponseEntity;
 import java.util.List;
 
-import com.Metaphorce.task.models.Todo
-import com.Metaphorce.task.services.TodoService
+import com.Metaphorce.task.models.Todo;
+import com.Metaphorce.task.services.Implements.TodoService;
 
 @RestController
 @RequestMapping("/api/todos")
@@ -17,13 +22,13 @@ private TodoService todoService;
 @Autowired
     public TodoController(TodoService TodoService)
     {
-        this.TodoService = TodoService;
+        this.todoService = todoService;
     }
 
     @GetMapping("/all")
     public List<Todo> getTodo()
     {
-        return this.TodoService.getTodo();
+        return this.todoService.findAll();
     }
 
 
